@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project Manager with RAG Assistant — Claudia Li</title>
+    <meta
+      name="description"
+      content="Case study: a full-stack project management app with an AI assistant built on retrieval-augmented generation, and the evaluation harness used to improve it."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <a class="nav__name" href="../index.html">Claudia Li</a>
+        <ul class="nav__links">
+          <li><a href="#app">The app</a></li>
+          <li><a href="#rag">RAG assistant</a></li>
+          <li><a href="#next">What's next</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="cs-hero">
+      <div class="wrap">
+        <a class="back" href="../index.html#projects">← All projects</a>
+        <h1>Project management app with a RAG-powered AI assistant</h1>
+        <p class="hero__lede">
+          A collaborative task manager where you can just ask things like
+          <em>"What's holding us up right now?"</em> or
+          <em>"What did we end up deciding about rate limits?"</em> and get answers grounded in
+          what your team actually wrote.
+        </p>
+
+        <div class="cs-meta">
+          <div><span>Role</span>Solo: design, frontend, backend, AI</div>
+          <div><span>Timeline</span>Mar 2025 – present</div>
+          <div><span>Stack</span>React · Node/Express · MongoDB Atlas · OpenAI/DeepSeek</div>
+          <div><span>Status</span>Runs locally · not yet deployed</div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn--primary" href="https://github.com/JxCl-L/project-management-assistant" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+            View source on GitHub
+          </a>
+        </div>
+
+        <div class="screens">
+          <a class="screen" href="../assets/pma/screen-dashboard.jpg">
+            <img src="../assets/pma/screen-dashboard.jpg" alt="Dashboard with project summary chart, calendar and coming-up tasks" loading="lazy" />
+            <span>Dashboard</span>
+          </a>
+          <a class="screen" href="../assets/pma/screen-project.jpg">
+            <img src="../assets/pma/screen-project.jpg" alt="Project page with progress bar, status filters and task cards" loading="lazy" />
+            <span>Project page</span>
+          </a>
+          <a class="screen" href="../assets/pma/screen-task.jpg">
+            <img src="../assets/pma/screen-task.jpg" alt="Task page with due date, priority, status stepper and rich-text content" loading="lazy" />
+            <span>Task page</span>
+          </a>
+          <a class="screen screen--tall" href="../assets/pma/screen-chat.jpg">
+            <img src="../assets/pma/screen-chat.jpg" alt="AI assistant chat panel answering a question about the project" loading="lazy" />
+            <span>AI assistant</span>
+          </a>
+        </div>
+
+        <div class="parts">
+          <a class="part-card" href="#app">
+            <span>Part 1</span>
+            <b>The app: full-stack development</b>
+            <p>Features, architecture, real-time collaboration, permissions and performance</p>
+          </a>
+          <a class="part-card" href="#rag">
+            <span>Part 2</span>
+            <b>The AI assistant: RAG, built and measured</b>
+            <p>Embedding pipeline, retrieval strategies, evaluation harness and prompt routing</p>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ======================= PART 1 ======================= -->
+
+      <div class="part-header" id="app">
+        <div class="wrap">
+          <p class="hero__eyebrow">Part 1</p>
+          <h2>The app: full-stack development</h2>
+          <p>
+            Before any AI, this is a complete multi-user project manager: authentication,
+            role-based access, live collaboration, dashboards. The AI features build on top of it.
+          </p>
+        </div>
+      </div>
+
+      <section>
+        <div class="wrap">
+          <h2 class="section-title">Features</h2>
+          <div class="showcase">
+            <div class="show">
+              <video controls preload="none" muted playsinline poster="../assets/pma/dashboard-calendar-poster.jpg">
+                <source src="../assets/pma/dashboard-calendar.mp4" type="video/mp4" />
+              </video>
+              <div class="show__text">
+                <h3>Dashboard &amp; calendar</h3>
+                <p>A cross-project overview: a summary chart you can switch between relative size and 100% status mix, a due-date calendar with hover previews, and coming-up and overdue lists.</p>
+              </div>
+            </div>
+            <div class="show">
+              <video controls preload="none" muted playsinline poster="../assets/pma/projects-members-poster.jpg">
+                <source src="../assets/pma/projects-members.mp4" type="video/mp4" />
+              </video>
+              <div class="show__text">
+                <h3>Projects, members &amp; roles</h3>
+                <p>Create projects, invite members by email, and assign manager, editor or viewer roles. Every role is enforced by the API and reflected in what the UI lets you do.</p>
+              </div>
+            </div>
+            <div class="show">
+              <div class="show__pair">
+                <a class="screen" href="../assets/pma/screen-project.jpg">
+                  <img src="../assets/pma/screen-project.jpg" alt="Project page with progress bar, status filters and task cards" loading="lazy" />
+                  <span>Project page</span>
+                </a>
+                <a class="screen" href="../assets/pma/screen-task.jpg">
+                  <img src="../assets/pma/screen-task.jpg" alt="Task page with due date, priority, status stepper and rich-text content" loading="lazy" />
+                  <span>Task page</span>
+                </a>
+              </div>
+              <div class="show__text">
+                <h3>Projects &amp; tasks</h3>
+                <p>Status, priority and due dates, with filtering, sorting, pagination and inline editing of every field. The project page shows progress at a glance, and each task page holds the rich-text notes the AI assistant reads.</p>
+              </div>
+            </div>
+            <div class="show">
+              <video controls preload="none" muted playsinline poster="../assets/pma/ai-create-task-poster.jpg">
+                <source src="../assets/pma/ai-create-task.mp4" type="video/mp4" />
+              </video>
+              <div class="show__text">
+                <h3>AI task creation</h3>
+                <p>Describe a task in one line, and the AI fills in the title, status, priority, a suggested due date and a description. The model is asked for strict JSON, which the server parses into form fields, and everything stays editable before you save.</p>
+              </div>
+            </div>
+            <div class="show">
+              <video controls preload="none" muted playsinline poster="../assets/pma/ai-rewrite-content-poster.jpg">
+                <source src="../assets/pma/ai-rewrite-content.mp4" type="video/mp4" />
+              </video>
+              <div class="show__text">
+                <h3>AI rewrite of task content</h3>
+                <p>Turn rough meeting notes into a structured document in one click. The model writes Markdown, and a small server-side parser converts it into the editor's TipTap JSON, so the result is normal editable content.</p>
+              </div>
+            </div>
+            <div class="show">
+              <video controls preload="none" muted playsinline poster="../assets/pma/screen-collab.jpg">
+                <source src="../assets/pma/live-collab.mp4" type="video/mp4" />
+              </video>
+              <div class="show__text">
+                <h3>Live collaboration</h3>
+                <p>Two people on the same task see each other's avatars and which field the other is editing, updated in real time over Socket.IO. Sockets authenticate with the same JWT as the API, and presence tracks every tab a user has open, so closing one tab doesn't make you disappear.</p>
+              </div>
+            </div>
+            <div class="show">
+              <video autoplay loop preload="metadata" muted playsinline poster="../assets/pma/theme-switch-poster.jpg">
+                <source src="../assets/pma/theme-switch.mp4" type="video/mp4" />
+              </video>
+              <div class="show__text">
+                <h3>Themes</h3>
+                <p>Light, dark and Solarized themes built on CSS variables. The saved theme is applied before the first render, so there's no flash of the wrong colours.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="lead-in">
+            The AI chat assistant has its own deep dive in <a href="#rag">Part 2</a>.
+          </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2 class="section-title">Architecture</h2>
+          <p class="lead-in">
+            An npm-workspaces monorepo: a React SPA, an Express API, and shared packages that both
+            apps import.
+          </p>
+
+          <div class="arch">
+            <div class="arch__box">
+              <h3>Client · React 19 + Vite</h3>
+              <ul>
+                <li>React Query for server state; URL params for UI state</li>
+                <li>React Hook Form + Zod</li>
+                <li>Radix UI / shadcn + Tailwind, 3 themes</li>
+                <li>Route-level code splitting</li>
+              </ul>
+            </div>
+            <div class="arch__arrow">REST · SSE<br />Socket.IO</div>
+            <div class="arch__box">
+              <h3>API · Node + Express</h3>
+              <ul>
+                <li>Routes → controller → provider layers</li>
+                <li>JWT auth, RBAC and validation middleware</li>
+                <li>Winston structured logging</li>
+                <li>Swagger / OpenAPI docs</li>
+              </ul>
+            </div>
+            <div class="arch__arrow">Mongoose<br />API calls</div>
+            <div class="arch__box">
+              <h3>Data &amp; AI services</h3>
+              <ul>
+                <li>MongoDB Atlas with indexes and aggregations</li>
+                <li>Atlas Vector Search + BM25 index</li>
+                <li>DeepSeek → GPT-4o-mini fallback</li>
+                <li>OpenAI embeddings</li>
+              </ul>
+            </div>
+            <div class="arch__shared">
+              Shared packages: <code>@pm/schemas</code> (Zod validation) and one RBAC permission
+              table, used by both client and server
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2 class="section-title">Engineering decisions</h2>
+
+          <article class="decision">
+            <div class="decision__num">01</div>
+            <div>
+              <h3>Keep server data in React Query, not React Context</h3>
+              <p>
+                The first version held projects and tasks in React Context, which meant manual
+                refetching, stale data after mutations, and re-renders across the tree. I removed
+                both contexts. Server data now lives in the React Query cache, and the current
+                project comes from the URL, so a page can be refreshed or shared as a link and
+                land in the same state.
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> a sizeable refactor across hooks and pages. In return,
+                cache settings live in one global config instead of being overridden hook by hook.
+              </p>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">02</div>
+            <div>
+              <h3>Define permissions and validation once, for both client and server</h3>
+              <p>
+                The client and server each kept their own copy of the role permissions, and they
+                had drifted apart. The server used <code>POST</code> while the client used
+                <code>post</code>, and the client was missing entries for AI chat and task content.
+                I migrated both apps into a monorepo and moved the permission table and Zod schemas
+                into shared packages. Now a form and its API endpoint validate against the same
+                schema, and each rule exists in exactly one place.
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> up-front work on the monorepo and ESM/CommonJS
+                packaging. I kept the full history of both original repos with
+                <code>git subtree</code>.
+              </p>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">03</div>
+            <div>
+              <h3>Presence at the field level, not just "who's online"</h3>
+              <p>
+                When two people edit the same task, the risky moment is when they're typing in the
+                same field. Each task is a Socket.IO room, and clients broadcast focus and blur
+                events per field, so the UI can show "Bob is editing the description". Sockets
+                authenticate with the same JWT as the REST API. The presence store tracks every
+                tab a user has open, so closing one tab doesn't make you vanish for everyone else.
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> presence lives in server memory, which is fine for a
+                single instance. Scaling out would need a shared store such as Redis.
+              </p>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">04</div>
+            <div>
+              <h3>Measure performance, then fix the biggest cost</h3>
+              <p>
+                I timed the project page's API and found 5 separate count queries (total, todo, in
+                progress, done, filtered). Combining them into one MongoDB <code>$facet</code>
+                aggregation, plus indexes on the task fields that queries filter on, cut the request
+                from <strong>~370 ms to ~181 ms</strong>.
+              </p>
+              <p>
+                On the client, every route, the rich-text editor and the AI panel are lazy-loaded.
+                The AI panel is prefetched in the background once tasks load, so it still opens
+                instantly. DOMContentLoaded went from <strong>354 ms to 192 ms</strong> (dev build).
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ======================= PART 2 ======================= -->
+
+      <div class="part-header" id="rag">
+        <div class="wrap">
+          <p class="hero__eyebrow">Part 2</p>
+          <h2>The AI assistant: RAG, built and measured</h2>
+          <p>
+            Wiring an LLM to a database is the easy part. The hard part is making answers
+            <strong>trustworthy</strong>: finding the right passage, not inventing facts, and saying
+            so when the answer isn't in the data. Everything here was driven by measurement.
+          </p>
+        </div>
+      </div>
+
+      <section>
+        <div class="wrap">
+          <h2 class="section-title">See it in action</h2>
+          <figure class="demo">
+            <video controls preload="metadata" muted playsinline poster="../assets/pma/rag-demo-poster.jpg">
+              <source src="../assets/pma/rag-demo.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              The assistant answering questions about a seeded project, ending with a question
+              whose answer isn't in the data (68 s). Recorded in full-context mode; the retrieval
+              strategies are compared in the evaluation below.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2 class="section-title">At a glance</h2>
+          <div class="stats">
+            <div class="stat">
+              <b>26 · 92</b>
+              <p>test questions, with 92 hand-labelled gold facts mapped to their source chunks</p>
+            </div>
+            <div class="stat">
+              <b>156</b>
+              <p>answers graded by hand per run: every question × 6 retrieval setups</p>
+            </div>
+            <div class="stat">
+              <b>6</b>
+              <p>root-cause categories for wrong answers, found by tracing each failure</p>
+            </div>
+            <div class="stat">
+              <b>78% → 84%</b>
+              <p>fully correct answers after routing prompts by question type (122 → 131)</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2 class="section-title">How it works</h2>
+
+          <div class="pipeline">
+            <h3>When someone edits a task (indexing)</h3>
+            <ol class="steps">
+              <li><b>Save</b>Rich-text content is saved as usual</li>
+              <li><b>Debounce 15 s</b>The timer restarts on every save, so only the final version gets embedded</li>
+              <li><b>Chunk</b>Text is split into overlapping 150-word windows</li>
+              <li><b>Embed &amp; index</b>Each chunk is embedded and indexed for vector and keyword search</li>
+            </ol>
+          </div>
+
+          <div class="pipeline">
+            <h3>When someone asks a question (answering)</h3>
+            <ol class="steps">
+              <li><b>Check access</b>Project membership is verified before any AI call is made</li>
+              <li><b>Classify</b>Runs in parallel: is this a FACT, LIST or OPEN question?</li>
+              <li><b>Retrieve</b>Top chunks from vector search, optionally fused with BM25</li>
+              <li><b>Answer</b>A prompt matched to the question type, streamed back with live progress stages</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2 class="section-title">Implementation &amp; optimization</h2>
+
+          <article class="decision">
+            <div class="decision__num">01</div>
+            <div>
+              <h3>Keep embeddings fresh without paying for every keystroke</h3>
+              <p>
+                The editor auto-saves every few seconds. Re-embedding on every save would waste API
+                calls on text that's about to change anyway. A server-side debouncer keeps one
+                timer per task and restarts it on each save, so only the content that sits
+                unchanged for 15 seconds gets chunked and embedded.
+              </p>
+              <p>
+                The timers live in memory, so a server restart could lose a pending job and leave
+                the AI answering from outdated text. To catch that, each save marks the task's
+                embedding as <em>stale</em>. If a stale task is opened later, the job is re-queued
+                in the background without slowing down the page.
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> up to ~15 seconds before new edits are searchable. That
+                was an acceptable price for far fewer embedding calls.
+              </p>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">02</div>
+            <div>
+              <h3>Build an evaluation harness before tuning anything</h3>
+              <p>
+                Early on, every prompt tweak "felt" better, and I had no way to tell. So I built a
+                test set: 26 questions over a seeded project, covering dates, numbers, attribution,
+                multi-part answers, summaries and one question with no answer in the data. It has
+                92 hand-labelled "gold facts", each mapped to the exact chunk that contains it.
+              </p>
+              <p>
+                A script runs every question against 6 retrieval setups and records what was
+                retrieved and what was answered. I grade the 156 answers by hand, and analyzer
+                scripts turn the results into comparison reports and HTML viewers.
+              </p>
+              <p>Tracing each wrong answer to its cause gave me six failure types, including:</p>
+              <ul>
+                <li><strong>Chunk boundary splits:</strong> the right task was found, but the answer's sentence landed in a neighbouring chunk that missed the top 8.</li>
+                <li><strong>Semantic mismatch:</strong> "What did Bob work on in February?" is a person + date filter, and vector search can't express that.</li>
+                <li><strong>Metadata hallucination:</strong> when retrieval came back thin, the model filled the gaps from the project's task list.</li>
+              </ul>
+              <p>
+                Evidence on GitHub:
+                <a href="https://github.com/JxCl-L/project-management-assistant/blob/main/apps/server/scripts/results/reruns-baseline/answer-quality-summary.md" target="_blank" rel="noopener">failure-type analysis</a> ·
+                <a href="https://github.com/JxCl-L/project-management-assistant/blob/main/apps/server/scripts/rag-eval-cases.json" target="_blank" rel="noopener">test cases &amp; gold facts</a> ·
+                <a href="https://github.com/JxCl-L/project-management-assistant/blob/main/apps/server/scripts/analyzers" target="_blank" rel="noopener">eval scripts</a>
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> hand-grading is slow. But it turned "seems better" into
+                numbers I could compare between runs, and every decision below rests on it.
+              </p>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">03</div>
+            <div>
+              <h3>Make retrieval swappable, and keep a "no retrieval" baseline</h3>
+              <p>
+                I implemented four strategies behind one interface, selectable per request: chunked
+                vector search, one embedding per task, hybrid (vector + BM25 merged with Reciprocal
+                Rank Fusion), and <em>full context</em>, which skips retrieval and puts every task
+                in the prompt. Several chunk sizes can be stored side by side for A/B comparison.
+              </p>
+              <p>
+                Full context is too expensive to ship at scale, but it's the ceiling: if it gets a
+                question wrong, retrieval isn't the problem. That split separated retrieval
+                failures from generation failures.
+              </p>
+              <p>
+                One surprising finding: on one question, hybrid and chunked retrieved the
+                <em>same chunks</em>, yet hybrid was consistently right. BM25 only changed their
+                <em>order</em>, and the model anchors on what it reads first.
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> more code paths and more Atlas indexes. The free tier
+                caps a cluster at 3 search indexes, so I designed the index layout around that
+                limit.
+              </p>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">04</div>
+            <div>
+              <h3>Route answers by question type instead of one generic prompt</h3>
+              <p>
+                "When did Stripe go live?" needs one precise fact. "What action items came out of
+                the post-mortem?" needs a complete list. One prompt did both badly. So a small
+                classifier labels each question <strong>FACT</strong>, <strong>LIST</strong> or
+                <strong>OPEN</strong>, and each label gets its own answer rules. For example, FACT
+                answers must quote their evidence or say the answer isn't there.
+              </p>
+              <p>
+                It's built to never make things worse. The classifier runs in parallel with
+                retrieval, only after the permission check passes. If it fails, the request falls
+                back to the original prompt. When it's unsure, it picks LIST, the safer choice.
+              </p>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>Run</th><th>Fully correct</th><th>Default setup (chunked 150/25)</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Single generic prompt</td><td>122 / 156</td><td>20 / 26</td></tr>
+                    <tr><td>Routed by question type</td><td>131 / 156</td><td>23 / 26</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="resources">
+                <a class="resource" href="rag-eval/compare-baseline-vs-routed.html">
+                  <span>Interactive · before vs after</span>
+                  <b>Generic prompt vs routed prompts</b>
+                  <p>Every answer that changed between the two runs: 11 improved, 2 regressed, with the diagnosis for each side and a write-up of the two regressions.</p>
+                </a>
+                <a class="resource" href="rag-eval/quality-baseline.html">
+                  <span>Interactive · baseline run</span>
+                  <b>Quality matrix: 26 questions × 6 setups</b>
+                  <p>Each cell's retrieval sufficiency and root-cause diagnosis. "Success" here excludes the 6 correct answers that came from task metadata rather than retrieval, hence 116 rather than 122.</p>
+                </a>
+              </div>
+              <p class="resources__note">
+                Best viewed on a laptop. Raw graded reports on GitHub:
+                <a href="https://github.com/JxCl-L/project-management-assistant/blob/main/apps/server/scripts/reports/rag-eval-report-baselineclass.md" target="_blank" rel="noopener">generic prompt</a> ·
+                <a href="https://github.com/JxCl-L/project-management-assistant/blob/main/apps/server/scripts/reports/rag-eval-report-routedclass.md" target="_blank" rel="noopener">routed</a>
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> average response time in the eval run went from about
+                2.2 s to 3.8 s, and two answers got worse. I traced both: one was a misclassification,
+                the other a LIST rule applied too literally.
+              </p>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">05</div>
+            <div>
+              <h3>Stream answers, and fall back between providers without mixing them</h3>
+              <p>
+                DeepSeek is the primary model because it's cheaper, and OpenAI is the fallback. One
+                <code>withFallback</code> helper covers both normal and streaming calls. For
+                streaming, the fallback only fires if DeepSeek fails <em>before the first token</em>.
+                If it fails halfway through an answer, the user gets a clear error instead of a
+                reply stitched together from two different models.
+              </p>
+              <p>
+                Answers stream over Server-Sent Events, which cuts the perceived wait from the
+                routing trade-off above. The server also sends real stage events ("analysing",
+                "searching", "generating") from actual points in the pipeline, not a fake progress
+                bar.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="next">
+        <div class="wrap two-col">
+          <div>
+            <h3>What I'd do next</h3>
+            <ul>
+              <li><strong>Metadata filters</strong> for person + date questions, the weakest category in my evals.</li>
+              <li><strong>Query rewriting</strong> so follow-ups like "and his March work?" resolve before retrieval.</li>
+              <li><strong>Broader automated tests.</strong> Vitest is set up on the client, starting with the shared permission rules. The API and the eval grading are next.</li>
+              <li><strong>Deploy</strong> it with a seeded demo project so anyone can try it.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>How I worked</h3>
+            <ul>
+              <li>Claude Code was my main tool for scaffolding, debugging and refactoring. I made the design decisions, and I reviewed and tested every change before merging.</li>
+              <li>I use small conventional commits that explain the <em>why</em>. Most sections of this page trace back to a commit message.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <a href="../index.html">← Back to home</a> ·
+        <a href="mailto:jiaxili0624@gmail.com">jiaxili0624@gmail.com</a>
+      </div>
+    </footer>
+    <script src="../nav.js"></script>
+    <script src="../lightbox.js"></script>
+  </body>
+</html>

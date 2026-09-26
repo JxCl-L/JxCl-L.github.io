@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Real Estate Media Platform — Claudia Li</title>
+    <meta
+      name="description"
+      content="Case study: an ASP.NET Core platform where real estate photography companies deliver media to agents, who curate and publish listing pages."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <a class="nav__name" href="../index.html">Claudia Li</a>
+        <ul class="nav__links">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#decisions">Decisions &amp; learnings</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="cs-hero">
+      <div class="wrap">
+        <a class="back" href="../index.html#projects">← All projects</a>
+        <p class="hero__eyebrow">Work project · Green Innovation Systems</p>
+        <h1>Real estate media delivery platform</h1>
+        <p class="hero__lede">
+          After a property shoot, the photography company uploads every photo, video and floor plan
+          in one place. The agent picks what to show, edits the listing page, and shares it with
+          buyers and renters.
+        </p>
+
+        <div class="cs-meta">
+          <div><span>Role</span>Full-stack developer</div>
+          <div><span>Team</span>8 people: project manager, product manager, 5 developers, Azure DevOps engineer</div>
+          <div><span>Timeline</span>Jun 2025 – present</div>
+          <div><span>Stack</span>C# · ASP.NET Core · EF Core · SQL Server · MongoDB · Azure</div>
+          <div><span>Code</span>Company project · no public source</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1. Overview -->
+      <section id="overview">
+        <div class="wrap prose">
+          <h2 class="section-title">Overview</h2>
+          <p>
+            Real estate photography companies have a lot of media to manage for every property
+            (print-quality photos, videos, floor plans and VR tours), and all of it has to reach
+            the agent. Doing that over email and file-sharing links is slow, and it's hard to track
+            what the agent has chosen to publish.
+          </p>
+          <p>
+            This platform puts the photography company and the agent in one shared workflow.
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. Architecture -->
+      <section id="architecture">
+        <div class="wrap">
+          <h2 class="section-title">Architecture</h2>
+          <p class="lead-in">
+            An ASP.NET Core Web API split into separate projects by layer, so each layer can only
+            depend on the ones below it.
+          </p>
+          <div class="arch">
+            <div class="arch__box">
+              <h3>API</h3>
+              <ul>
+                <li>Controllers with XML doc comments → Swagger</li>
+                <li>JWT auth and role-based policies</li>
+                <li>Global exception middleware</li>
+                <li>One response shape for every endpoint</li>
+              </ul>
+            </div>
+            <div class="arch__arrow">DTOs</div>
+            <div class="arch__box">
+              <h3>Service</h3>
+              <ul>
+                <li>Business rules and status workflow</li>
+                <li>FluentValidation on every request</li>
+                <li>DTO mapping</li>
+                <li>Audit events written to MongoDB</li>
+              </ul>
+            </div>
+            <div class="arch__arrow">interfaces</div>
+            <div class="arch__box">
+              <h3>Repository &amp; data access</h3>
+              <ul>
+                <li>EF Core DbContext on SQL Server</li>
+                <li>Transactions for multi-table writes</li>
+                <li>MongoDB collections for logs</li>
+                <li>Azure Blob Storage for media files</li>
+              </ul>
+            </div>
+            <div class="arch__shared">
+              Shared projects: <b>Models</b> (entities, enums, constants) and <b>Common</b>
+              (custom exceptions, extensions, helpers)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Key decisions -->
+      <section id="decisions">
+        <div class="wrap">
+          <h2 class="section-title">Key decisions</h2>
+
+          <article class="decision">
+            <div class="decision__num">01</div>
+            <div>
+              <h3>Build "download all" ZIPs in a temp file, not in memory or straight into the response</h3>
+              <figure class="diagram"><svg viewBox="0 0 880 400" role="img" aria-label="Three ways to build the ZIP: in memory, straight into the response, or in a temp file first"><defs><marker id="ah1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0 L10 5 L0 10 z"/></marker></defs><text class="d-title" x="20" y="34" text-anchor="start">1 · In memory (MemoryStream)</text><text class="d-bad" x="860" y="34" text-anchor="end">✗ memory grows with ZIP size × concurrent downloads</text><rect class="d-box" x="20" y="48" width="150" height="56" rx="8"/><text class="d-label" x="95.0" y="73.0" text-anchor="middle">Azure Blob</text><text class="d-sub" x="95.0" y="90.0" text-anchor="middle">photos · videos</text><rect class="d-box" x="250" y="48" width="300" height="56" rx="8"/><text class="d-label" x="400.0" y="73.0" text-anchor="middle">ZipArchive → MemoryStream</text><text class="d-sub" x="400.0" y="90.0" text-anchor="middle">whole ZIP held in RAM</text><rect class="d-box" x="700" y="48" width="160" height="56" rx="8"/><text class="d-label" x="780.0" y="80.0" text-anchor="middle">Browser</text><line class="d-line" x1="170" y1="76" x2="248" y2="76" marker-end="url(#ah1)"/><line class="d-line" x1="550" y1="76" x2="698" y2="76" marker-end="url(#ah1)"/><text class="d-sub" x="625" y="69" text-anchor="middle">send</text><text class="d-title" x="20" y="164" text-anchor="start">2 · Straight into the response</text><text class="d-bad" x="860" y="164" text-anchor="end">✗ fails midway → broken ZIP · sync writes blocked</text><rect class="d-box" x="20" y="178" width="150" height="56" rx="8"/><text class="d-label" x="95.0" y="203.0" text-anchor="middle">Azure Blob</text><text class="d-sub" x="95.0" y="220.0" text-anchor="middle">photos · videos</text><rect class="d-box" x="250" y="178" width="300" height="56" rx="8"/><text class="d-label" x="400.0" y="203.0" text-anchor="middle">ZipArchive → Response.Body</text><text class="d-sub" x="400.0" y="220.0" text-anchor="middle">builds and sends at the same time</text><rect class="d-box" x="700" y="178" width="160" height="56" rx="8"/><text class="d-label" x="780.0" y="210.0" text-anchor="middle">Browser</text><line class="d-line" x1="170" y1="206" x2="248" y2="206" marker-end="url(#ah1)"/><line class="d-line dashed" x1="550" y1="206" x2="698" y2="206" marker-end="url(#ah1)"/><text class="d-sub" x="625" y="199" text-anchor="middle">stream while building</text><text class="d-title" x="20" y="294" text-anchor="start">3 · Temp file on disk (chosen)</text><text class="d-good" x="860" y="294" text-anchor="end">✓ errors caught before sending · low memory · Content-Length</text><rect class="d-box" x="20" y="308" width="150" height="56" rx="8"/><text class="d-label" x="95.0" y="333.0" text-anchor="middle">Azure Blob</text><text class="d-sub" x="95.0" y="350.0" text-anchor="middle">photos · videos</text><rect class="d-box d-box--accent" x="250" y="308" width="300" height="56" rx="8"/><text class="d-label" x="400.0" y="333.0" text-anchor="middle">ZipArchive → temp file</text><text class="d-sub" x="400.0" y="350.0" text-anchor="middle">① build fully on disk  ② then send</text><rect class="d-box" x="700" y="308" width="160" height="56" rx="8"/><text class="d-label" x="780.0" y="340.0" text-anchor="middle">Browser</text><line class="d-line" x1="170" y1="336" x2="248" y2="336" marker-end="url(#ah1)"/><line class="d-line" x1="550" y1="336" x2="698" y2="336" marker-end="url(#ah1)"/><text class="d-sub" x="625" y="329" text-anchor="middle">stream when done</text></svg></figure>
+              <details class="more">
+                <summary>Read the reasoning</summary>
+
+              <p>
+                "Download all" packs every file in a listing case (print-quality photos, videos,
+                floor plans) from Azure Blob Storage into one ZIP. I compared three ways to build it:
+              </p>
+              <ol>
+                <li><strong>In memory (<code>MemoryStream</code>).</strong> The simplest option, but the whole ZIP sits in server memory, so memory use grows with every file and every concurrent download.</li>
+                <li><strong>Straight into the HTTP response,</strong> building and sending at the same time. It uses little memory, but there are two problems. First, once the first byte is sent, the <code>200 OK</code> can't be taken back. If one Blob file fails halfway through, the user gets a broken ZIP that looks like a successful download. Second, .NET 8's <code>ZipArchive</code> only writes synchronously, and ASP.NET Core blocks synchronous writes to the response by default. Turning on <code>AllowSynchronousIO</code> would hide the error, but it brings back the reason it's off: a slow client would tie up a server thread for the whole download.</li>
+                <li><strong>A temp file on disk (what I chose).</strong> The ZIP is built completely on disk first, then sent. Memory holds only small buffers, no matter how big the ZIP gets. If anything fails while building, nothing has been sent yet, so the global exception middleware returns a normal error. <code>ZipArchive</code>'s synchronous writes go to local disk, which is fast, and ASP.NET Core then streams the finished file to the client asynchronously. Because the file size is known, the response includes <code>Content-Length</code>, so the browser shows real download progress.</li>
+              </ol>
+              <p>
+                Two details in the implementation: the temp file is opened with
+                <code>FileOptions.DeleteOnClose</code>, so it's removed automatically once the stream
+                closes, even if the request fails, and with <code>FileOptions.Asynchronous</code> for
+                async reads when sending. Entries are stored with no compression, because photos and
+                videos are already compressed and compressing them again only costs CPU.
+              </p>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> it needs temporary disk space, and the download only
+                starts once the whole ZIP is built.
+              </p>
+              </details>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">02</div>
+            <div>
+              <h3>Give each object the lifetime that matches how it's shared</h3>
+              <figure class="diagram"><svg viewBox="0 0 880 316" role="img" aria-label="Timeline of object lifetimes: singletons for the whole app, scoped objects per request, streams per file"><defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0 L10 5 L0 10 z"/></marker></defs><text class="d-title" x="20" y="22" text-anchor="start">A dependency must live at least as long as what uses it</text><text class="d-bad" x="860" y="22" text-anchor="end">✗ singleton → scoped: one DbContext shared by every request</text><text class="d-label" x="20" y="74" text-anchor="start">Singleton</text><text class="d-sub" x="20" y="90" text-anchor="start">BlobServiceClient · MongoClient</text><text class="d-label" x="20" y="134" text-anchor="start">Scoped (per request)</text><text class="d-sub" x="20" y="150" text-anchor="start">DbContext · repositories · services</text><text class="d-label" x="20" y="194" text-anchor="start">Per file (download)</text><text class="d-sub" x="20" y="210" text-anchor="start">Blob stream · ZIP entry stream</text><text class="d-label" x="20" y="244" text-anchor="start">Temp file</text><text class="d-sub" x="20" y="260" text-anchor="start">until the response is sent</text><rect class="d-bar d-bar--1" x="200" y="64" width="660" height="24" rx="6"/><text class="d-bartext" x="530" y="80" text-anchor="middle">created once at startup, shared by all requests</text><rect class="d-bar d-bar--2" x="200" y="124" width="150" height="24" rx="6"/><text class="d-bartext" x="275.0" y="140" text-anchor="middle">request 1</text><rect class="d-bar d-bar--2" x="390" y="124" width="310" height="24" rx="6"/><text class="d-bartext" x="545.0" y="140" text-anchor="middle">request 2: download all</text><rect class="d-bar d-bar--2" x="740" y="124" width="120" height="24" rx="6"/><text class="d-bartext" x="800.0" y="140" text-anchor="middle">request 3</text><rect class="d-bar d-bar--3" x="400" y="184" width="58" height="20" rx="5"/><rect class="d-bar d-bar--3" x="470" y="184" width="58" height="20" rx="5"/><rect class="d-bar d-bar--3" x="540" y="184" width="58" height="20" rx="5"/><text class="d-sub" x="606" y="198" text-anchor="start">one file at a time</text><rect class="d-bar d-bar--3" x="400" y="234" width="300" height="20" rx="5"/><text class="d-bartext" x="550" y="248" text-anchor="middle">DeleteOnClose after sending</text><line class="d-guide" x1="390" y1="118" x2="390" y2="262"/><line class="d-guide" x1="700" y1="118" x2="700" y2="262"/><line class="d-line" x1="200" y1="290" x2="858" y2="290" marker-end="url(#ah2)"/><text class="d-sub" x="200" y="306" text-anchor="start">app starts</text><text class="d-sub" x="860" y="306" text-anchor="end">app stops</text></svg></figure>
+              <details class="more">
+                <summary>Read the reasoning</summary>
+
+              <p>
+                I learned this one from an error: <em>"Cannot consume scoped service from
+                singleton."</em> It comes down to one rule: anything an object depends on must live
+                at least as long as that object. Once I thought about lifetimes that way, I set
+                three levels:
+              </p>
+              <ul>
+                <li><strong>Singleton for clients that pool connections:</strong> <code>BlobServiceClient</code>, and the MongoDB client inside <code>MongoDbContext</code>. Both are thread-safe and designed to be created once and shared. Creating one per request opens new connections every time and can exhaust them under load, the same trap as <code>new HttpClient()</code> per request.</li>
+                <li><strong>Scoped for EF Core's <code>DbContext</code> and everything built on it.</strong> A <code>DbContext</code> isn't thread-safe and tracks changes for a single unit of work, so each request gets its own. Repositories and services are scoped too: a singleton holding a <code>DbContext</code> would keep one alive for the whole app and share it across every request, which is exactly what that error prevents.</li>
+                <li><strong>Per file for streams during a ZIP download.</strong> Each Blob download stream and ZIP entry stream is disposed as soon as that file is copied (<code>await using</code>), so only one file is open at a time. <code>ZipArchive</code> is opened with <code>leaveOpen: true</code>: disposing it writes the ZIP's table of contents but keeps the temp file open so it can be sent. ASP.NET Core disposes the temp file after the response, which triggers <code>DeleteOnClose</code>.</li>
+              </ul>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> the rules constrain the design. Singletons must be
+                thread-safe and can never depend on scoped services, and anything that runs after a
+                request ends has to create its own scope.
+              </p>
+              </details>
+            </div>
+          </article>
+
+          <article class="decision">
+            <div class="decision__num">03</div>
+            <div>
+              <h3>Keep SQL Server, Blob Storage and MongoDB consistent without a shared transaction</h3>
+              <figure class="diagram"><svg viewBox="0 0 880 440" role="img" aria-label="Upload and delete flows across the API server, Blob Storage, SQL Server and MongoDB"><defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0 L10 5 L0 10 z"/></marker></defs><line class="d-lifeline" x1="90" y1="44" x2="90" y2="430"/><rect class="d-box d-box--head" x="15" y="10" width="150" height="34" rx="8"/><text class="d-label" x="90.0" y="31.0" text-anchor="middle">API server</text><line class="d-lifeline" x1="330" y1="44" x2="330" y2="430"/><rect class="d-box d-box--head" x="255" y="10" width="150" height="34" rx="8"/><text class="d-label" x="330.0" y="31.0" text-anchor="middle">Blob Storage</text><line class="d-lifeline" x1="570" y1="44" x2="570" y2="430"/><rect class="d-box d-box--head" x="495" y="10" width="150" height="34" rx="8"/><text class="d-label" x="570.0" y="31.0" text-anchor="middle">SQL Server</text><line class="d-lifeline" x1="790" y1="44" x2="790" y2="430"/><rect class="d-box d-box--head" x="715" y="10" width="150" height="34" rx="8"/><text class="d-label" x="790.0" y="31.0" text-anchor="middle">MongoDB</text><text class="d-section" x="100" y="74" text-anchor="start">UPLOAD</text><line class="d-line" x1="90" y1="100" x2="328" y2="100" marker-end="url(#ah3)"/><text class="d-text halo" x="100" y="94" text-anchor="start">① upload each file</text><line class="d-line dashed" x1="330" y1="128" x2="92" y2="128" marker-end="url(#ah3)"/><text class="d-sub halo" x="320" y="122" text-anchor="end">file URL</text><line class="d-line" x1="90" y1="170" x2="568" y2="170" marker-end="url(#ah3)"/><text class="d-text halo" x="100" y="164" text-anchor="start">② save all records in one SaveChanges</text><text class="d-warn halo" x="100" y="188" text-anchor="start">if this fails: files left with no record → cleanup job</text><line class="d-line" x1="90" y1="225" x2="788" y2="225" marker-end="url(#ah3)"/><text class="d-text halo" x="100" y="219" text-anchor="start">③ write audit log</text><text class="d-warn halo" x="100" y="243" text-anchor="start">if this fails: change is saved, but the user sees an error (known gap)</text><line class="d-guide" x1="20" y1="272" x2="860" y2="272"/><text class="d-section" x="100" y="298" text-anchor="start">DELETE</text><line class="d-line" x1="90" y1="325" x2="568" y2="325" marker-end="url(#ah3)"/><text class="d-text halo" x="100" y="319" text-anchor="start">① soft delete: IsDeleted = true</text><rect class="d-box d-box--kept" x="255" y="343" width="150" height="28" rx="6"/><text class="d-sub" x="330" y="362" text-anchor="middle">file kept → restorable</text><line class="d-line" x1="90" y1="400" x2="788" y2="400" marker-end="url(#ah3)"/><text class="d-text halo" x="100" y="394" text-anchor="start">② write audit log</text></svg></figure>
+              <details class="more">
+                <summary>Read the reasoning</summary>
+
+              <p>
+                One upload or delete touches three systems: SQL Server for records, Blob Storage for
+                files, and MongoDB for audit logs. They can't share a transaction, so if one step
+                succeeds and the next fails, they drift apart. SQL Server is the source of truth, so
+                I ordered each flow so that a failure leaves the less harmful kind of mismatch:
+              </p>
+              <ul>
+                <li><strong>Upload: files first, then the database records.</strong> If the database write fails, the only leftovers are files nothing points to, which waste some storage. The other order could leave records pointing at files that don't exist, and the front end would show broken media. All records for one upload are saved with a single <code>SaveChanges</code>, so the database never holds half an upload.</li>
+                <li><strong>Delete: soft delete in SQL, keep the file.</strong> The record is flagged as deleted and the file stays in Blob Storage, so a mistaken delete can be undone.</li>
+                <li><strong>Audit logs: a known gap.</strong> The log is written to MongoDB after SQL has saved. If that write fails, the error reaches the exception middleware, so the user sees a failure even though the change was saved, and may retry and create a duplicate.</li>
+              </ul>
+              <p class="tradeoff">
+                <strong>Trade-off:</strong> ordering the steps this way accepts leftover files in
+                Blob Storage in exchange for never showing users broken data. Those files need
+                cleaning up eventually.
+              </p>
+              </details>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 4. Quality -->
+      <section>
+        <div class="wrap two-col">
+          <div>
+            <h3>Quality &amp; conventions</h3>
+            <ul>
+              <li>Every error goes through one exception middleware and returns the same response shape</li>
+              <li>Status codes follow a shared table: 201 for creates, 204 for deletes, 403 vs 401, and so on</li>
+              <li>Dependency injection for every service, and transactions for multi-table writes</li>
+              <li>Conventional commits tied to Jira tickets, e.g. <code>feat(TICKET-123): …</code></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Testing</h3>
+            <ul>
+              <li>xUnit tests for listing case, media and agent-selection services</li>
+              <li>Moq to fake the database, Blob Storage and auth</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. What I learned -->
+      <section>
+        <div class="wrap prose">
+          <h2 class="section-title">What I learned</h2>
+          <ul>
+              <li><strong>Decoupling with SOLID in practice: interfaces, a generic repository and DI.</strong> Every repository and service sits behind an interface and is registered in DI. Services depend on interfaces, not concrete classes (dependency inversion), and each repository interface exposes only what its callers need (interface segregation). Repositories share a generic base: <code>IGenericRepository&lt;T&gt;</code> and <code>GenericRepository&lt;T&gt;</code> hold the common CRUD, and a specific repository like <code>AgentPhotographyCompanyRepository</code> inherits it and adds only its own queries. Swapping an implementation means changing one DI registration, and unit tests can hand in Moq fakes.</li>
+              <li><strong>DTOs for every request and response, never entities.</strong> The API contract can change without touching the database model, clients can't set fields they shouldn't (like <code>IsDeleted</code> or a user ID), and internal fields such as password hashes never leak into a response.</li>
+              <li><strong>Rules at three levels: data annotations, Fluent API, FluentValidation.</strong> Simple column rules (required, max length) live on the entities as data annotations. Relationships and database-wide behaviour are set with the Fluent API in the <code>DbContext</code>: one-to-one links from <code>User</code> to its <code>Agent</code> and <code>PhotographyCompany</code> profiles, cascade delete turned off everywhere because deletes are soft, and a global query filter that hides <code>IsDeleted</code> rows from every query. Incoming requests are checked separately with FluentValidation on the DTOs.</li>
+            </ul>
+        </div>
+      </section>
+
+      <!-- 6. What I'd do next -->
+      <section id="next">
+        <div class="wrap prose">
+          <h2 class="section-title">What I'd do next</h2>
+          <ul>
+              <li><strong>Bigger downloads:</strong> ZIPs are so far tested with MB-sized listings. For multi-GB listings, I'd build the ZIP in Blob Storage and hand out a temporary download link (SAS URL), since App Service has limited local disk.</li>
+              <li><strong>File cleanup:</strong> delete an uploaded file straight away if its database write fails, and run a scheduled job that removes files with no record, plus files for records soft-deleted longer than a set period.</li>
+              <li><strong>Reliable audit logs:</strong> write audit events into SQL Server in the same transaction as the change (an outbox table), and have a background job copy them to MongoDB, so a MongoDB outage can't lose a log or fail a saved request.</li>
+            </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <a href="../index.html">← Back to home</a> ·
+        <a href="mailto:jiaxili0624@gmail.com">jiaxili0624@gmail.com</a>
+      </div>
+    </footer>
+    <script src="../nav.js"></script>
+  </body>
+</html>

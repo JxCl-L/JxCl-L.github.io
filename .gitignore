@@ -1,0 +1,10 @@
+# macOS system files
+.DS_Store
+
+# CV (not for public)
+*.pdf
+
+# Raw recordings and original images: only publish what the site uses
+assets/*
+!assets/claudia.jpg
+!assets/pma/

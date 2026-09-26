@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Claudia Li — Full-Stack Software Engineer</title>
+    <meta
+      name="description"
+      content="Claudia Li is a full-stack software engineer building web applications with C#/.NET, Node.js, React and TypeScript, plus AI features like RAG chat assistants."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <a class="nav__name" href="#top">Claudia Li</a>
+        <ul class="nav__links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="wrap">
+        <div>
+          <p class="hero__eyebrow">Full-Stack Software Engineer</p>
+          <h1>Hi, I'm Claudia.</h1>
+          <p class="hero__lede">
+            I build reliable web applications end to end, from database schema to React UI, and
+            increasingly the AI features that sit on top of them.
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="mailto:jiaxili0624@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              Email me
+            </a>
+            <a class="btn" href="https://github.com/JxCl-L" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+              GitHub
+            </a>
+            <a class="btn" href="https://www.linkedin.com/in/claudia-li-7b77b0279" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        <img class="hero__photo" src="assets/claudia.jpg" alt="Portrait of Claudia Li" width="260" height="260" />
+      </div>
+    </header>
+
+    <main>
+      <section id="about">
+        <div class="wrap about">
+          <div>
+            <h2 class="section-title">About</h2>
+            <p>
+              I'm a software engineer at Green Innovation Systems, where I build full-stack features
+              for enterprise web apps with C#, ASP.NET Core, React and TypeScript. Before that I
+              built a real-time monitoring app for a biotech system at HUM Bioreclamation, working
+              directly with clients and the product manager to turn requirements into shipped
+              software.
+            </p>
+            <p>
+              Outside work I build in Node.js and MongoDB. My current project is a project
+              management app with an AI chat assistant that answers questions about your tasks using
+              retrieval-augmented generation (RAG).
+            </p>
+          </div>
+          <ul class="facts">
+            <li><span>Currently</span>Software Engineer, Green Innovation Systems</li>
+            <li><span>Education</span>Master of Computing, Australian National University</li>
+            <li><span>Focus</span>Full-stack web · APIs &amp; data · AI features</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="wrap">
+          <h2 class="section-title">Projects</h2>
+          <p class="group-note">
+            Work projects were built for employers, so there's no source code. Those case studies
+            focus on the problem, my role and the decisions I made.
+          </p>
+          <div class="projects projects--row">
+            <article class="project">
+              <p class="project__meta">Personal project</p>
+              <h3>Project Management App with a RAG Assistant</h3>
+              <p>
+                A full-stack project manager with role-based access and live collaboration, plus an
+                AI assistant that answers questions from your tasks. I improved its accuracy using
+                an evaluation harness I built myself.
+              </p>
+              <ul class="tags">
+                <li>React</li><li>Node.js</li><li>MongoDB Atlas</li><li>Vector Search</li><li>OpenAI</li><li>SSE</li>
+              </ul>
+              <p class="project__status">
+                <a class="project__link" href="projects/project-management-assistant.html">Read the case study →</a>
+              </p>
+            </article>
+            <article class="project">
+              <p class="project__meta">Work · Green Innovation Systems</p>
+              <h3>Real Estate Media Delivery Platform</h3>
+              <p>
+                A platform where photography companies deliver property photos, videos and floor
+                plans to real estate agents, who pick what to show and publish a listing page.
+              </p>
+              <ul class="tags">
+                <li>C#</li><li>ASP.NET Core</li><li>EF Core</li><li>SQL Server</li><li>MongoDB</li><li>Azure Blob</li>
+              </ul>
+              <p class="project__status">
+                <a class="project__link" href="projects/real-estate-media.html">Read the case study →</a>
+              </p>
+            </article>
+            <article class="project">
+              <p class="project__meta">Work · HUM Bioreclamation</p>
+              <h3>Real-Time Monitoring for a Biotech System</h3>
+              <p>
+                A web app for monitoring a biotechnology system in real time. I built the layered
+                ASP.NET Web API, designed the SQL Server schema, and sped up heavy queries with
+                indexing and projections.
+              </p>
+              <ul class="tags">
+                <li>C#</li><li>ASP.NET Web API</li><li>EF Core</li><li>SQL Server</li><li>Swagger</li>
+              </ul>
+              <p class="project__status">Case study coming soon</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="wrap">
+          <h2 class="section-title">Skills</h2>
+          <div class="skills">
+            <div class="skill-group">
+              <h3>Languages</h3>
+              <ul class="tags">
+                <li>C#</li><li>TypeScript</li><li>JavaScript</li><li>SQL</li><li>Python</li><li>Java</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h3>Backend</h3>
+              <ul class="tags">
+                <li>ASP.NET Core</li><li>Node.js</li><li>Express</li><li>Spring Boot</li><li>FastAPI</li><li>REST APIs</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h3>Frontend</h3>
+              <ul class="tags">
+                <li>React</li><li>Vue.js</li><li>React Query</li><li>Tailwind CSS</li><li>shadcn/ui</li><li>Radix UI</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h3>Data</h3>
+              <ul class="tags">
+                <li>SQL Server</li><li>PostgreSQL</li><li>MongoDB</li><li>MySQL</li><li>EF Core</li><li>Prisma</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h3>Cloud &amp; DevOps</h3>
+              <ul class="tags">
+                <li>AWS</li><li>Azure</li><li>Docker</li><li>GitHub Actions</li><li>Azure DevOps</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h3>AI</h3>
+              <ul class="tags">
+                <li>RAG</li><li>Vector search</li><li>OpenAI embeddings</li><li>LLM APIs</li><li>Claude Code</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="wrap">
+          <h2 class="section-title">Experience</h2>
+
+          <div class="job">
+            <div class="job__when">Jun 2025 – Present</div>
+            <div>
+              <h3>Software Engineer</h3>
+              <p class="job__org">Green Innovation Systems · Sydney</p>
+              <ul>
+                <li>Develop full-stack features for enterprise web apps with C# and ASP.NET Core on the back end and React and TypeScript on the front end.</li>
+                <li>Build RESTful APIs with ASP.NET Core Web API, following a layered, clean architecture and SOLID principles.</li>
+                <li>Model relational data with Entity Framework Core and SQL Server.</li>
+                <li>Implement authentication and authorization with ASP.NET Identity and JWT, including role-based access control.</li>
+                <li>Build pixel-accurate, responsive React front ends with TypeScript and Tailwind CSS, turning Figma designs into production components across breakpoints.</li>
+                <li>Add request validation and DTO mapping so API contracts stay separate from internal domain models.</li>
+                <li>Write unit and integration tests with xUnit and Moq on the back end and Jest on the front end to catch regressions.</li>
+                <li>Contribute to CI/CD with GitHub Actions and Azure DevOps, and deploy and configure infrastructure on Azure App Service.</li>
+                <li>Add structured logging and centralized exception handling to make the system easier to observe and more reliable.</li>
+                <li>Work in an Agile team of eight, running two-week sprints in Jira and keeping technical docs in Confluence.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="job">
+            <div class="job__when">Feb 2025 – Jun 2025</div>
+            <div>
+              <h3>Software Developer</h3>
+              <p class="job__org">HUM Bioreclamation · Canberra</p>
+              <ul>
+                <li>Designed and built a web app for real-time monitoring of a biotechnology system.</li>
+                <li>Sped up heavy SQL Server queries by rewriting EF Core queries, adding indexes and using projections.</li>
+                <li>Gathered requirements with clients and the PM, then iterated on the product through usability reviews.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="wrap">
+        © 2026 Claudia Li ·
+        <a href="mailto:jiaxili0624@gmail.com">jiaxili0624@gmail.com</a>
+      </div>
+    </footer>
+    <script src="nav.js"></script>
+  </body>
+</html>
