@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -85,12 +85,18 @@
 
       <section id="projects">
         <div class="wrap">
-          <h2 class="section-title">Projects</h2>
+          <div class="rail-head">
+            <h2 class="section-title">Projects</h2>
+            <div class="rail-ctrl">
+              <button class="rail-btn" type="button" data-rail-dir="-1" aria-label="Scroll left">‹</button>
+              <button class="rail-btn" type="button" data-rail-dir="1" aria-label="Scroll right">›</button>
+            </div>
+          </div>
           <p class="group-note">
             Work projects were built for employers, so there's no source code. Those case studies
             focus on the problem, my role and the decisions I made.
           </p>
-          <div class="projects projects--row">
+          <div class="rail rail--projects">
             <article class="project">
               <p class="project__meta">Personal project</p>
               <h3>Project Management App with a RAG Assistant</h3>
@@ -139,8 +145,14 @@
 
       <section id="skills">
         <div class="wrap">
-          <h2 class="section-title">Skills</h2>
-          <div class="skills">
+          <div class="rail-head">
+            <h2 class="section-title">Skills</h2>
+            <div class="rail-ctrl">
+              <button class="rail-btn" type="button" data-rail-dir="-1" aria-label="Scroll left">‹</button>
+              <button class="rail-btn" type="button" data-rail-dir="1" aria-label="Scroll right">›</button>
+            </div>
+          </div>
+          <div class="rail rail--skills">
             <div class="skill-group">
               <h3>Languages</h3>
               <ul class="tags">
@@ -183,39 +195,41 @@
 
       <section id="experience">
         <div class="wrap">
-          <h2 class="section-title">Experience</h2>
-
-          <div class="job">
-            <div class="job__when">Jun 2025 – Present</div>
-            <div>
+          <div class="rail-head">
+            <h2 class="section-title">Experience</h2>
+            <div class="rail-ctrl">
+              <button class="rail-btn" type="button" data-rail-dir="-1" aria-label="Scroll left">‹</button>
+              <button class="rail-btn" type="button" data-rail-dir="1" aria-label="Scroll right">›</button>
+            </div>
+          </div>
+          <div class="rail rail--jobs">
+            <article class="job-card">
+              <p class="job__when">Jun 2025 – Present</p>
               <h3>Software Engineer</h3>
               <p class="job__org">Green Innovation Systems · Sydney</p>
               <ul>
-                <li>Develop full-stack features for enterprise web apps with C# and ASP.NET Core on the back end and React and TypeScript on the front end.</li>
-                <li>Build RESTful APIs with ASP.NET Core Web API, following a layered, clean architecture and SOLID principles.</li>
-                <li>Model relational data with Entity Framework Core and SQL Server.</li>
-                <li>Implement authentication and authorization with ASP.NET Identity and JWT, including role-based access control.</li>
-                <li>Build pixel-accurate, responsive React front ends with TypeScript and Tailwind CSS, turning Figma designs into production components across breakpoints.</li>
-                <li>Add request validation and DTO mapping so API contracts stay separate from internal domain models.</li>
-                <li>Write unit and integration tests with xUnit and Moq on the back end and Jest on the front end to catch regressions.</li>
-                <li>Contribute to CI/CD with GitHub Actions and Azure DevOps, and deploy and configure infrastructure on Azure App Service.</li>
-                <li>Add structured logging and centralized exception handling to make the system easier to observe and more reliable.</li>
-                <li>Work in an Agile team of eight, running two-week sprints in Jira and keeping technical docs in Confluence.</li>
+              <li>Develop full-stack features for enterprise web apps with C# and ASP.NET Core on the back end and React and TypeScript on the front end.</li>
+              <li>Build RESTful APIs with ASP.NET Core Web API, following a layered, clean architecture and SOLID principles.</li>
+              <li>Model relational data with Entity Framework Core and SQL Server.</li>
+              <li>Implement authentication and authorization with ASP.NET Identity and JWT, including role-based access control.</li>
+              <li>Build pixel-accurate, responsive React front ends with TypeScript and Tailwind CSS, turning Figma designs into production components across breakpoints.</li>
+              <li>Add request validation and DTO mapping so API contracts stay separate from internal domain models.</li>
+              <li>Write unit and integration tests with xUnit and Moq on the back end and Jest on the front end to catch regressions.</li>
+              <li>Contribute to CI/CD with GitHub Actions and Azure DevOps, and deploy and configure infrastructure on Azure App Service.</li>
+              <li>Add structured logging and centralized exception handling to make the system easier to observe and more reliable.</li>
+              <li>Work in an Agile team of eight, running two-week sprints in Jira and keeping technical docs in Confluence.</li>
               </ul>
-            </div>
-          </div>
-
-          <div class="job">
-            <div class="job__when">Feb 2025 – Jun 2025</div>
-            <div>
+            </article>
+            <article class="job-card">
+              <p class="job__when">Feb 2025 – Jun 2025</p>
               <h3>Software Developer</h3>
               <p class="job__org">HUM Bioreclamation · Canberra</p>
               <ul>
-                <li>Designed and built a web app for real-time monitoring of a biotechnology system.</li>
-                <li>Sped up heavy SQL Server queries by rewriting EF Core queries, adding indexes and using projections.</li>
-                <li>Gathered requirements with clients and the PM, then iterated on the product through usability reviews.</li>
+              <li>Designed and built a web app for real-time monitoring of a biotechnology system.</li>
+              <li>Sped up heavy SQL Server queries by rewriting EF Core queries, adding indexes and using projections.</li>
+              <li>Gathered requirements with clients and the PM, then iterated on the product through usability reviews.</li>
               </ul>
-            </div>
+            </article>
           </div>
         </div>
       </section>
@@ -229,5 +243,6 @@
       </div>
     </footer>
     <script src="nav.js"></script>
+    <script src="rail.js"></script>
   </body>
 </html>

@@ -1,28 +1,28 @@
 /* Shared styles — reused by case-study pages later. */
 
 :root {
-  --bg: #f7f5f0;
+  --bg: #fafaf8;
   --surface: #ffffff;
-  --text: #1c1b19;
-  --muted: #5f5b53;
-  --line: #e4e0d6;
-  --accent: #2f5d50;
-  --accent-soft: #e3ece8;
-  --radius: 14px;
+  --text: #1a1a1a;
+  --muted: #6e6a64;
+  --line: #e8e6e1;
+  --accent: #1a1a1a;
+  --accent-soft: #efede9;
+  --radius: 12px;
   --max: 960px;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Fraunces", Georgia, serif;
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #151614;
-    --surface: #1d1f1c;
-    --text: #ecebe6;
-    --muted: #a5a39b;
-    --line: #2e312d;
-    --accent: #8cc5b2;
-    --accent-soft: #233430;
+    --bg: #141413;
+    --surface: #1c1c1a;
+    --text: #edebe6;
+    --muted: #a09c95;
+    --line: #2c2b28;
+    --accent: #edebe6;
+    --accent-soft: #252422;
   }
 }
 
@@ -1168,8 +1168,8 @@ video,
 
 /* Lifecycle list: number · status · role tag · what happens */
 :root {
-  --role-company: #2f5d50;
-  --role-company-bg: #e3ece8;
+  --role-company: #1a1a1a;
+  --role-company-bg: #efede9;
   --role-agent: #2c5a8a;
   --role-agent-bg: #e2ebf5;
   --role-both: #5f5b53;
@@ -1178,8 +1178,8 @@ video,
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --role-company: #8cc5b2;
-    --role-company-bg: #233430;
+    --role-company: #edebe6;
+    --role-company-bg: #252422;
     --role-agent: #8db8e6;
     --role-agent-bg: #1f2d3d;
     --role-both: #c9c7bf;
@@ -1323,4 +1323,155 @@ video,
 
 .more[open] summary {
   margin-bottom: 12px;
+}
+
+
+/* ---------- Neutral restyle: tighter headings, quieter links ---------- */
+h1, h2, h3, .section-title, .nav__name {
+  letter-spacing: -0.015em;
+}
+
+.hero h1,
+.cs-hero h1,
+.part-header h2 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.hero__eyebrow {
+  color: var(--muted);
+}
+
+.prose a,
+.lead-in a,
+.demo figcaption a,
+footer a,
+.resources__note a,
+.show__text a {
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-decoration-thickness: 1.5px;
+}
+
+.prose a:hover,
+.lead-in a:hover,
+footer a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* ---------- Horizontal rails (home page) ---------- */
+.rail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.rail-head .section-title {
+  margin: 0;
+}
+
+.rail-ctrl {
+  display: flex;
+  gap: 8px;
+}
+
+.rail-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.rail-btn:hover:not(:disabled) {
+  border-color: var(--text);
+}
+
+.rail-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.rail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  padding: 2px 2px 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.rail > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.rail--projects > .project {
+  width: min(340px, 85%);
+}
+
+.rail--skills > .skill-group {
+  width: min(260px, 75%);
+}
+
+.rail--jobs > .job-card {
+  width: min(480px, 90%);
+}
+
+.rail .group-note {
+  margin: 0;
+}
+
+.job-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+
+.job-card .job__when {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+}
+
+.job-card h3 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.job-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.93rem;
+}
+
+.job-card li {
+  margin-bottom: 6px;
+}
+
+.rail-ctrl[hidden] {
+  display: none;
+}
+
+/* Quieter project cards: gray labels, upright link pinned to the bottom */
+.project .project__meta {
+  color: var(--muted);
+}
+
+.project__status {
+  font-style: normal;
+  margin-top: auto;
+}
+
+.project .tags {
+  margin-bottom: 16px;
 }
